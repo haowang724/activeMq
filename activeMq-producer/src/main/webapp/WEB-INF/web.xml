@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" 
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+   
+    <display-name>activeMq-producer</display-name>
+    <context-param>
+	  	<param-name>webAppRootKey</param-name>
+		<param-value>activeMq.producer</param-value>
+    </context-param>
+    
+    <!-- 1. 加载spring的xml到spring的上下文容器 -->
+	<context-param>
+              <param-name>contextConfigLocation</param-name> 
+              <param-value>classpath*:spring/applicationContext.xml</param-value> 
+	</context-param>
+	
+	<!-- 2. 加载log4j配置文件 -->
+	  <context-param>
+	     <param-name>log4jConfigLocation</param-name>
+	     <param-value>classpath:log4j.properties</param-value>
+	  </context-param>
+	  <context-param>
+	     <param-name>log4jRefreshInterval</param-name>
+	     <param-value>3000</param-value>
+	  </context-param>
+
+	<!--3.  监听spring上下文容器 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>		
+	</listener>
+	
+	  	<!-- 4. 配置spring MVC的DispatcherServlet -->
+	<servlet>
+		<servlet-name>springMVC</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!--5.  加载spring MVC的xml到spring的上下文容器 -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath*:springmvc-servlet.xml</param-value>
+		</init-param>
+		<!-- 启动加载该servlet -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+       <servlet-name>springMVC</servlet-name>
+       <url-pattern>*.action</url-pattern>
+    </servlet-mapping>
+	
+	<welcome-file-list>
+	   <welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
