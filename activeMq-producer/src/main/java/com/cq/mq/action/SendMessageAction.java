@@ -21,6 +21,13 @@ public class SendMessageAction {
     public String sendMqMessage(){
     	sendMessageService.send("activeMq 发送消息---"+System.currentTimeMillis());
     	logger.info("消息发送了==========");
-    	return "jsm activemq complete";
+    	return "jms activemq complete";
+    }
+    
+    @ResponseBody
+    @RequestMapping("sendTopic")
+    public String sendTopicMessage() {
+    	sendMessageService.sendTopic("activeMq 发送Topic消息---"+System.currentTimeMillis());
+    	return "jms activemq topic";
     }
 }

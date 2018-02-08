@@ -46,10 +46,34 @@
             <value>${QueueName.mqTest}</value>
         </constructor-arg>
     </bean>
-    <!-- 消息监听容器 -->
+    <!-- 队列消息监听容器 -->
     <bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="connectionFactory" ref="connectionFactory" />
         <property name="destination" ref="queueDestination" />
         <property name="messageListener" ref="consumerMessageListener" />
+    </bean>
+    
+    <!-- 主题目的地 -->
+    <bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
+        <constructor-arg>
+            <value>${Topic.mqTest}</value>
+        </constructor-arg>
+    </bean>
+    <!-- 主题监听类 -->
+    <bean id="consumerTopicMessageListener" class="com.cq.mq.listener.ConsumerTopicMessageListener"></bean>
+    <!-- 主题监听容器 -->
+    <bean id="topicContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+         <property name="connectionFactory" ref="connectionFactory" />
+         <property name="destination" ref="topicDestination" />
+         <property name="messageListener" ref="consumerTopicMessageListener" />
+    </bean>
+    
+    <!-- 主题监听类2 -->
+    <bean id="consumerTopicMessageListener2" class="com.cq.mq.listener.ConsumerTopicMessageListener2"></bean>
+    <!-- 主题监听容器2 -->
+    <bean id="topicContainer2" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+         <property name="connectionFactory" ref="connectionFactory" />
+         <property name="destination" ref="topicDestination" />
+         <property name="messageListener" ref="consumerTopicMessageListener2" />
     </bean>
 </beans>
